@@ -55,11 +55,21 @@ class ReservationTicket:
          self.hotel = hotel_object
 
      def generate_ticket(self):
-         content = f"""Thank you for you rreservation!
+         content = f"""Thank you for you reservation!
          Here are you booking data:
          Name: {self.customer_name}
          Hotel Name: {self.hotel.name} """
          return content
+     
+
+class ReservationSpa(ReservationTicket):
+    def generate_ticket(self):
+        content = f"""Thank you for your SPA reservation!
+        Here are you Spa booking data:
+        Name: {self.customer_name}
+        Hotel: {self.hotel.name}"""
+        return content
+
      
 
 print(df)
@@ -77,7 +87,23 @@ while True:
                     name = input("Enter your name: ")
                     reservation_ticket = ReservationTicket(customer_name=name, hotel_object=hotel)
                     print(reservation_ticket.generate_ticket())
+
+                    while True:
+                        reservation_spa = ReservationSpa(customer_name=name, hotel_object=hotel)
+                        user_choose = input("Do you want to book a spa package? yes/no: ")
+                        user_choose = user_choose.strip().upper()
+                        if user_choose == "YES":
+                            print(reservation_spa.generate_ticket())
+                            break
+                        elif user_choose == "NO":
+                            print("Ok, Good Bye!")
+                            break
+                        else:
+                            print("Please enter a answer valid. (yes/no)")
+                            continue
+
                     break
+
                 else:
                     print("Authentication failed.")
                     break
@@ -92,6 +118,6 @@ while True:
             "Please enter a hotel ID valid. \n"
             "--------------------------------")
         print(df)
-        continue
+        
 
             
